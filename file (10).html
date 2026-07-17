@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- ============================================================
+       META & SEO
+  ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goldene Tafel – Restaurant | Frische Zutaten. Echter Geschmack.</title>
+  <meta name="description" content="Goldene Tafel – Gehobene Küche mit frischen, regionalen Zutaten. Reservieren Sie jetzt Ihren Tisch in unserem eleganten Restaurant.">
+  <meta name="keywords" content="Restaurant, Fine Dining, regionale Küche, Reservierung, Goldene Tafel">
+  <meta name="author" content="Goldene Tafel">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#c9a227">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Goldene Tafel – Frische Zutaten. Echter Geschmack.">
+  <meta property="og:description" content="Gehobene Küche mit frischen, regionalen Zutaten. Jetzt Tisch reservieren.">
+  <meta property="og:image" content="[images.unsplash.com](https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80)">
+  <meta property="og:url" content="[goldene-tafel.example.com](https://goldene-tafel.example.com)">
+  <meta property="og:locale" content="de_DE">
+
+  <!-- Favicon (Inline-SVG, keine externe Datei nötig) -->
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="[w3.org](http://www.w3.org/2000/svg)" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="%23181818"/><text x="50" y="66" font-size="52" text-anchor="middle" fill="%23c9a227" font-family="Georgia">G</text></svg>'>
+
+  <style>
+  /* ============================================================
+     1. DESIGN-TOKENS & GRUNDLAGEN
+  ============================================================ */
+  :root {
+    --cream:        #f7f2e9;
+    --white:        #ffffff;
+    --dark:         #2b2b2b;
+    --black:        #161616;
+    --gold:         #c9a227;
+    --gold-light:   #e3c565;
+    --text:         #3a3a3a;
+    --text-soft:    #6f6b62;
+    --card-bg:      #ffffff;
+    --surface:      #fdfbf7;
+    --shadow-sm:    0 4px 14px rgba(0,0,0,.06);
+    --shadow-md:    0 12px 30px rgba(0,0,0,.10);
+    --shadow-lg:    0 24px 60px rgba(0,0,0,.16);
+    --radius:       18px;
+    --transition:   .35s cubic-bezier(.25,.8,.35,1);
+    --font-head:    Georgia, 'Times New Roman', serif;
+    --font-body:    'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Dark Mode über data-Attribut */
+  html[data-theme="dark"] {
+    --cream:      #1c1a16;
+    --white:      #141414;
+    --dark:       #efe9dc;
+    --black:      #0d0d0d;
+    --text:       #e8e2d5;
+    --text-soft:  #a49c8c;
+    --card-bg:    #211f1b;
+    --surface:    #191713;
+    --shadow-sm:  0 4px 14px rgba(0,0,0,.4);
+    --shadow-md:  0 12px 30px rgba(0,0,0,.5);
+    --shadow-lg:  0 24px 60px rgba(0,0,0,.6);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.7;
+    overflow-x: hidden;
+    transition: background .4s ease, color .4s ease;
+  }
+
+  img { max-width: 100%; display: block; }
+  a   { text-decoration: none; color: inherit; }
+  ul  { list-style: none; }
+
+  /* Schöne Scrollbar */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--gold), #9d7d16);
+    border-radius: 10px;
+  }
+  ::selection { background: var(--gold); color: #fff; }
+
+  .container { width: min(1180px, 92%); margin-inline: auto; }
+
+  section { padding: clamp(64px, 9vw, 120px) 0; }
+
+  .section-tag {
+    display: inline-block;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    color: var(--dark);
+    margin-bottom: 18px;
+    line-height: 1.25;
+  }
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
+  .section-head p { color: var(--text-soft); }
+
+  /* ============================================================
+     2. BUTTONS (inkl. Ripple)
+  ============================================================ */
+  .btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding: 15px 36px;
+    border-radius: 50px;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #a8851a);
+    color: #fff;
+    box-shadow: 0 10px 26px rgba(201,162,39,.35);
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(201,162,39,.45); }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,.75);
+    backdrop-filter: blur(4px);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,.14); transform: translateY(-3px); }
+
+  /* Ripple-Kreis (per JS erzeugt) */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.5);
+    transform: scale(0);
+    animation: ripple .6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+  /* ============================================================
+     3. PRELOADER
+  ============================================================ */
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--black);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px;
+    transition: opacity .6s ease, visibility .6s ease;
+  }
+  #preloader.hidden { opacity: 0; visibility: hidden; }
+  .loader-logo {
+    font-family: var(--font-head);
+    color: var(--gold);
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+  .loader-ring {
+    width: 46px; height: 46px;
+    border: 3px solid rgba(201,162,39,.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ============================================================
+     4. HEADER / NAVIGATION
+  ============================================================ */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 22px 0;
+    transition: padding var(--transition), background var(--transition), box-shadow var(--transition);
+  }
+  header.scrolled {
+    padding: 10px 0;
+    background: color-mix(in srgb, var(--white) 78%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-sm);
+  }
+  .nav-wrap { display: flex; align-items: center; justify-content: space-between; }
+
+  .logo {
+    font-family: var(--font-head);
+    font-size: 1.45rem;
+    color: #fff;
+    letter-spacing: 1px;
+    transition: color var(--transition);
+  }
+  .logo span { color: var(--gold); }
+  header.scrolled .logo { color: var(--dark); }
+
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a {
+    position: relative;
+    font-size: .92rem; font-weight: 500;
+    color: #fff;
+    padding: 4px 0;
+    transition: color var(--transition);
+  }
+  header.scrolled .nav-links a { color: var(--text); }
+  .nav-links a::after {
+    content: "";
+    position: absolute; left: 0; bottom: -2px;
+    width: 0; height: 2px;
+    background: var(--gold);
+    transition: width var(--transition);
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* Dark-Mode-Button + Hamburger */
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.25rem; color: #fff;
+    transition: color var(--transition), transform var(--transition);
+  }
+  .icon-btn:hover { transform: scale(1.15); color: var(--gold); }
+  header.scrolled .icon-btn { color: var(--dark); }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+  .hamburger span {
+    width: 26px; height: 2px;
+    background: #fff; border-radius: 2px;
+    transition: var(--transition);
+  }
+  header.scrolled .hamburger span { background: var(--dark); }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ============================================================
+     5. HERO
+  ============================================================ */
+  .hero {
+    min-height: 100svh;
+    display: grid; place-items: center;
+    text-align: center; color: #fff;
+    background:
+      linear-gradient(rgba(10,10,10,.55), rgba(10,10,10,.65)),
+      url("[images.unsplash.com](https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1800&q=80)") center/cover no-repeat fixed;
+    padding: 0;
+    position: relative;
+  }
+  .hero-inner { width: min(820px, 90%); }
+  .hero-tag {
+    letter-spacing: 6px; text-transform: uppercase;
+    font-size: .8rem; color: var(--gold-light);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: #e9e4d8; margin-bottom: 36px; }
+  .hero-buttons { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+  /* Animierter Scroll-Indikator */
+  .scroll-indicator {
+    position: absolute; bottom: 34px; left: 50%;
+    transform: translateX(-50%);
+    width: 26px; height: 44px;
+    border: 2px solid rgba(255,255,255,.7);
+    border-radius: 20px;
+  }
+  .scroll-indicator::before {
+    content: "";
+    position: absolute; left: 50%; top: 8px;
+    width: 4px; height: 9px;
+    background: var(--gold);
+    border-radius: 4px;
+    transform: translateX(-50%);
+    animation: wheel 1.8s ease-in-out infinite;
+  }
+  @keyframes wheel {
+    0%   { opacity: 1; top: 8px; }
+    70%  { opacity: 0; top: 24px; }
+    100% { opacity: 0; top: 8px; }
+  }
+
+  /* ============================================================
+     6. ÜBER UNS
+  ============================================================ */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(36px, 6vw, 80px); align-items: center;
+  }
+  .about-img-wrap { position: relative; }
+  .about-img-wrap img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4/5; object-fit: cover; width: 100%;
+  }
+  .about-badge {
+    position: absolute; bottom: -24px; right: -14px;
+    background: linear-gradient(135deg, var(--gold), #a8851a);
+    color: #fff;
+    padding: 20px 26px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  .about-badge strong { display: block; font-size: 1.8rem; font-family: var(--font-head); }
+  .about-badge small { font-size: .78rem; letter-spacing: 1px; }
+
+  .about-icons { display: flex; gap: 28px; margin-top: 30px; flex-wrap: wrap; }
+  .about-icon { display: flex; align-items: center; gap: 12px; }
+  .about-icon .ic {
+    width: 48px; height: 48px; flex: none;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--gold) 14%, transparent);
+    color: var(--gold);
+    border-radius: 14px;
+    font-size: 1.3rem;
+  }
+  .about-icon strong { display: block; color: var(--dark); font-size: .95rem; }
+  .about-icon small { color: var(--text-soft); font-size: .8rem; }
+
+  /* ============================================================
+     7. WARUM WIR
+  ============================================================ */
+  .why { background: var(--surface); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 26px;
+  }
+  .why-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .why-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); }
+  .why-card .emoji {
+    width: 66px; height: 66px; margin: 0 auto 20px;
+    display: grid; place-items: center;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--gold) 14%, transparent);
+    transition: transform var(--transition);
+  }
+  .why-card:hover .emoji { transform: rotate(-8deg) scale(1.1); }
+  .why-card h3 { font-family: var(--font-head); color: var(--dark); margin-bottom: 10px; font-size: 1.15rem; }
+  .why-card p { color: var(--text-soft); font-size: .92rem; }
+
+  /* ============================================================
+     8. SPEISEKARTE
+  ============================================================ */
+  .menu-filters { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
+  .filter-btn {
+    padding: 10px 26px;
+    border-radius: 50px;
+    border: 1.5px solid color-mix(in srgb, var(--gold) 45%, transparent);
+    background: transparent;
+    color: var(--text);
+    font-weight: 600; font-size: .88rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .filter-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .filter-btn.active { background: linear-gradient(135deg, var(--gold), #a8851a); color: #fff; border-color: transparent; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 28px;
+  }
+  .dish-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition), opacity .4s ease;
+  }
+  .dish-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+  .dish-card.hide { display: none; }
+  .dish-img { height: 210px; overflow: hidden; }
+  .dish-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .dish-card:hover .dish-img img { transform: scale(1.08); }
+  .dish-body { padding: 24px; }
+  .dish-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .dish-top h3 { font-family: var(--font-head); color: var(--dark); font-size: 1.1rem; }
+  .dish-price { color: var(--gold); font-weight: 700; white-space: nowrap; }
+  .dish-body p { color: var(--text-soft); font-size: .88rem; }
+  .dish-cat {
+    display: inline-block; margin-top: 14px;
+    font-size: .7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+    padding: 4px 12px; border-radius: 30px;
+  }
+
+  /* ============================================================
+     9. GALERIE (Masonry via CSS Columns)
+  ============================================================ */
+  .gallery { background: var(--surface); }
+  .masonry { columns: 3 260px; column-gap: 18px; }
+  .masonry img {
+    width: 100%; margin-bottom: 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    cursor: zoom-in;
+    transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+  }
+  .masonry img:hover { transform: scale(1.02); box-shadow: var(--shadow-md); filter: brightness(1.06); }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(8,8,8,.9);
+    backdrop-filter: blur(6px);
+    display: grid; place-items: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+  }
+  .lightbox.open { opacity: 1; visibility: visible; }
+  .lightbox img {
+    max-width: 90vw; max-height: 84vh;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    animation: zoomIn .35s ease;
+  }
+  @keyframes zoomIn { from { transform: scale(.85); opacity: 0; } }
+  .lightbox-close {
+    position: absolute; top: 24px; right: 30px;
+    font-size: 2.2rem; color: #fff; background: none; border: none; cursor: pointer;
+    transition: transform var(--transition), color var(--transition);
+  }
+  .lightbox-close:hover { transform: rotate(90deg); color: var(--gold); }
+
+  /* ============================================================
+     10. BEWERTUNGEN (Auto-Slider)
+  ============================================================ */
+  .reviews-slider { overflow: hidden; position: relative; max-width: 760px; margin: 0 auto; }
+  .reviews-track { display: flex; transition: transform .7s cubic-bezier(.6,0,.2,1); }
+  .review {
+    flex: 0 0 100%;
+    padding: 46px 40px;
+    text-align: center;
+  }
+  .review-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 44px 36px;
+    /* dezenter Glassmorphism */
+    border: 1px solid color-mix(in srgb, var(--gold) 18%, transparent);
+  }
+  .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 18px; }
+  .review-text { font-style: italic; color: var(--text-soft); margin-bottom: 22px; }
+  .review-name { font-weight: 700; color: var(--dark); }
+  .review-role { font-size: .8rem; color: var(--text-soft); }
+  .review-dots { display: flex; justify-content: center; gap: 10px; margin-top: 8px; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: color-mix(in srgb, var(--gold) 30%, transparent);
+    transition: var(--transition);
+  }
+  .dot.active { background: var(--gold); transform: scale(1.3); }
+
+  /* ============================================================
+     11. RESERVIERUNG
+  ============================================================ */
+  .reserve {
+    background:
+      linear-gradient(rgba(12,12,12,.78), rgba(12,12,12,.82)),
+      url("[images.unsplash.com](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80)") center/cover fixed;
+    color: #fff;
+  }
+  .reserve .section-title { color: #fff; }
+  .reserve-form {
+    max-width: 760px; margin: 0 auto;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    padding: clamp(28px, 5vw, 48px);
+    box-shadow: var(--shadow-lg);
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 26px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group label { font-size: .82rem; letter-spacing: 1px; color: #e9e2cf; }
+  .form-group input, .form-group select {
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.1);
+    color: #fff;
+    font-size: .95rem;
+    outline: none;
+    transition: border-color var(--transition), background var(--transition);
+    color-scheme: dark;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,.16);
+  }
+  .form-group option { color: #222; }
+  .form-msg { margin-top: 16px; text-align: center; color: var(--gold-light); font-weight: 600; min-height: 1.4em; }
+
+  /* ============================================================
+     12. KONTAKT
+  ============================================================ */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; }
+  .contact-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 24px 26px;
+    display: flex; gap: 18px; align-items: flex-start;
+    margin-bottom: 18px;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .contact-card:hover { transform: translateX(6px); box-shadow: var(--shadow-md); }
+  .contact-card .ic {
+    width: 48px; height: 48px; flex: none;
+    display: grid; place-items: center;
+    background: color-mix(in srgb, var(--gold) 14%, transparent);
+    color: var(--gold);
+    border-radius: 14px; font-size: 1.25rem;
+  }
+  .contact-card strong { color: var(--dark); display: block; margin-bottom: 3px; }
+  .contact-card p { font-size: .9rem; color: var(--text-soft); }
+  .map-placeholder {
+    border-radius: var(--radius);
+    min-height: 380px;
+    background:
+      linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+      url("[images.unsplash.com](https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1000&q=80)") center/cover;
+    display: grid; place-items: center;
+    box-shadow: var(--shadow-md);
+    color: #fff; text-align: center;
+  }
+  .map-placeholder span {
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(6px);
+    padding: 14px 26px; border-radius: 50px;
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     13. FOOTER
+  ============================================================ */
+  footer { background: var(--black); color: #cfc9bb; padding: 60px 0 26px; }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px; margin-bottom: 42px;
+  }
+  .footer-grid .logo { color: #fff; margin-bottom: 14px; display: inline-block; }
+  footer h4 { color: #fff; font-family: var(--font-head); margin-bottom: 16px; }
+  .footer-nav a { display: block; padding: 4px 0; font-size: .9rem; transition: color var(--transition), padding-left var(--transition); }
+  .footer-nav a:hover { color: var(--gold); padding-left: 6px; }
+  .socials { display: flex; gap: 12px; margin-top: 18px; }
+  .socials a {
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 50%;
+    font-size: 1.05rem;
+    transition: var(--transition);
+  }
+  .socials a:hover { background: var(--gold); border-color: var(--gold); color: #fff; transform: translateY(-4px); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 22px; text-align: center;
+    font-size: .82rem; color: #8c8778;
+  }
+
+  /* ============================================================
+     14. SCROLL-TO-TOP
+  ============================================================ */
+  #toTop {
+    position: fixed; right: 26px; bottom: 26px; z-index: 1500;
+    width: 50px; height: 50px;
+    border-radius: 50%; border: none;
+    background: linear-gradient(135deg, var(--gold), #a8851a);
+    color: #fff; font-size: 1.2rem; cursor: pointer;
+    box-shadow: var(--shadow-md);
+    opacity: 0; visibility: hidden; transform: translateY(16px);
+    transition: var(--transition);
+  }
+  #toTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+  #toTop:hover { transform: translateY(-4px); }
+
+  /* ============================================================
+     15. SCROLL-ANIMATIONEN (Fade-In / Slide-Up)
+  ============================================================ */
+  .reveal { opacity: 0; transform: translateY(38px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left  { opacity: 0; transform: translateX(-46px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal-right { opacity: 0; transform: translateX(46px);  transition: opacity .8s ease, transform .8s ease; }
+  .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  /* gestaffelte Verzögerung */
+  .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+  .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+  /* ============================================================
+     16. RESPONSIVE
+  ============================================================ */
+  @media (max-width: 900px) {
+    .about-grid, .contact-grid, .form-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+    .about-badge { right: 10px; }
+  }
+  @media (max-width: 820px) {
+    .hamburger { display: flex; z-index: 1101; }
+    .nav-links {
+      position: fixed; inset: 0;
+      background: color-mix(in srgb, var(--black) 96%, transparent);
+      backdrop-filter: blur(10px);
+      flex-direction: column; justify-content: center;
+      gap: 30px;
+      transform: translateX(100%);
+      transition: transform .45s cubic-bezier(.7,0,.2,1);
+      z-index: 1100;
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-links a { color: #fff !important; font-size: 1.3rem; }
+    .hero { background-attachment: scroll; }
+    .reserve { background-attachment: scroll; }
+    .btn { padding: 14px 30px; } /* Touch-freundlich */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ============ PRELOADER ============ -->
+  <div id="preloader">
+    <div class="loader-logo">Goldene <span style="color:#fff">Tafel</span></div>
+    <div class="loader-ring"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="header">
+    <div class="container nav-wrap">
+      <a href="#home" class="logo">Goldene <span>Tafel</span></a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#menu">Speisekarte</a>
+        <a href="#about">Über uns</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#reviews">Bewertungen</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+
+      <div style="display:flex; align-items:center; gap:16px;">
+        <button class="icon-btn" id="themeToggle" aria-label="Dark Mode umschalten">🌙</button>
+        <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <p class="hero-tag">Willkommen in der Goldenen Tafel</p>
+      <h1>Frische Zutaten.<br>Echter Geschmack.</h1>
+      <p>Erleben Sie gehobene Küche mit regionalen Produkten – mit Leidenschaft zubereitet, mit Liebe serviert.</p>
+      <div class="hero-buttons">
+        <a href="#reserve" class="btn btn-gold">Tisch reservieren</a>
+        <a href="#menu" class="btn btn-outline">Speisekarte ansehen</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ ÜBER UNS ============ -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-img-wrap reveal-left">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1552566626-52f8b828add9?w=900&q=80)" alt="Innenraum des Restaurants Goldene Tafel" loading="lazy">
+        <div class="about-badge"><strong>25+</strong><small>Jahre Erfahrung</small></div>
+      </div>
+      <div class="reveal-right">
+        <span class="section-tag">Über uns</span>
+        <h2 class="section-title">Eine Geschichte voller Leidenschaft</h2>
+        <p style="color:var(--text-soft); margin-bottom:16px;">
+          Seit 1999 steht die <strong>Goldene Tafel</strong> für ehrliche Küche auf höchstem Niveau.
+          Was als kleines Familienlokal begann, ist heute eine der ersten Adressen der Stadt –
+          geblieben ist die Liebe zum Handwerk.
+        </p>
+        <p style="color:var(--text-soft);">
+          Unsere Küche verbindet regionale Tradition mit moderner Raffinesse. Jeden Morgen wählen
+          wir unsere Zutaten persönlich bei Erzeugern aus der Umgebung aus.
+        </p>
+        <div class="about-icons">
+          <div class="about-icon">
+            <div class="ic">👨‍🍳</div>
+            <div><strong>Meisterküche</strong><small>Ausgezeichnete Köche</small></div>
+          </div>
+          <div class="about-icon">
+            <div class="ic">🌿</div>
+            <div><strong>Regional</strong><small>Direkt vom Erzeuger</small></div>
+          </div>
+          <div class="about-icon">
+            <div class="ic">🍷</div>
+            <div><strong>Weinauswahl</strong><small>Über 120 Positionen</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WARUM WIR ============ -->
+  <section class="why">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Warum wir</span>
+        <h2 class="section-title">Was uns besonders macht</h2>
+        <p>Vier gute Gründe, heute Abend bei uns zu Gast zu sein.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal d1">
+          <div class="emoji">🥬</div>
+          <h3>✓ Frische Zutaten</h3>
+          <p>Täglich frisch vom Markt – ohne Kompromisse bei der Qualität.</p>
+        </div>
+        <div class="why-card reveal d2">
+          <div class="emoji">👨‍🍳</div>
+          <h3>✓ Erfahrene Köche</h3>
+          <p>Unser Küchenteam vereint Jahrzehnte an Erfahrung und Kreativität.</p>
+        </div>
+        <div class="why-card reveal d3">
+          <div class="emoji">🕯️</div>
+          <h3>✓ Gemütliche Atmosphäre</h3>
+          <p>Warmes Licht, edles Ambiente – der perfekte Rahmen für jeden Anlass.</p>
+        </div>
+        <div class="why-card reveal d4">
+          <div class="emoji">🚜</div>
+          <h3>✓ Regionale Produkte</h3>
+          <p>Kurze Wege, faire Partnerschaften mit Höfen aus der Region.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPEISEKARTE ============ -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Speisekarte</span>
+        <h2 class="section-title">Unsere Küche entdecken</h2>
+        <p>Handverlesene Gerichte – saisonal, regional, unvergesslich.</p>
+      </div>
+
+      <!-- Filter ohne Reload -->
+      <div class="menu-filters reveal" id="menuFilters">
+        <button class="filter-btn active" data-filter="all">Alle</button>
+        <button class="filter-btn" data-filter="vorspeise">Vorspeisen</button>
+        <button class="filter-btn" data-filter="haupt">Hauptgerichte</button>
+        <button class="filter-btn" data-filter="dessert">Desserts</button>
+        <button class="filter-btn" data-filter="getraenk">Getränke</button>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+        <!-- Vorspeisen -->
+        <article class="dish-card reveal" data-cat="vorspeise">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=80)" alt="Kürbiscremesuppe" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Kürbiscremesuppe</h3><span class="dish-price">9,50 €</span></div>
+            <p>Mit geröstetem Kürbiskernöl, Crème fraîche und knusprigem Brot.</p>
+            <span class="dish-cat">Vorspeise</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="vorspeise">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=80)" alt="Gartensalat" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Gartensalat „Goldene Tafel"</h3><span class="dish-price">11,00 €</span></div>
+            <p>Junge Blattsalate, Ziegenkäse, karamellisierte Walnüsse, Honig-Vinaigrette.</p>
+            <span class="dish-cat">Vorspeise</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="vorspeise">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=700&q=80)" alt="Bruschetta" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Bruschetta Classico</h3><span class="dish-price">8,50 €</span></div>
+            <p>Geröstetes Sauerteigbrot, Strauchtomaten, Basilikum, Olivenöl extra vergine.</p>
+            <span class="dish-cat">Vorspeise</span>
+          </div>
+        </article>
+
+        <!-- Hauptgerichte -->
+        <article class="dish-card reveal" data-cat="haupt">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1544025162-d76694265947?w=700&q=80)" alt="Rinderfilet" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Rinderfilet vom Grill</h3><span class="dish-price">34,50 €</span></div>
+            <p>200 g regionales Rinderfilet, Rotweinjus, Trüffelkartoffelpüree, Marktgemüse.</p>
+            <span class="dish-cat">Hauptgericht</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="haupt">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&q=80)" alt="Lachsfilet" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Gebratenes Lachsfilet</h3><span class="dish-price">27,00 €</span></div>
+            <p>Auf Zitronenrisotto mit gegrilltem Spargel und Beurre blanc.</p>
+            <span class="dish-cat">Hauptgericht</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="haupt">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=80)" alt="Gemüse-Bowl" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Vegetarische Genuss-Bowl</h3><span class="dish-price">19,50 €</span></div>
+            <p>Ofengemüse, Quinoa, geräucherter Hummus, eingelegte rote Zwiebeln.</p>
+            <span class="dish-cat">Hauptgericht</span>
+          </div>
+        </article>
+
+        <!-- Desserts -->
+        <article class="dish-card reveal" data-cat="dessert">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1551024506-0bccd828d307?w=700&q=80)" alt="Schokoladendessert" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Schokoladen-Fondant</h3><span class="dish-price">10,50 €</span></div>
+            <p>Mit flüssigem Kern, Vanilleeis und marinierten Himbeeren.</p>
+            <span class="dish-cat">Dessert</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="dessert">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1488477181946-6428a0291777?w=700&q=80)" alt="Panna Cotta" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Panna Cotta</h3><span class="dish-price">8,50 €</span></div>
+            <p>Klassisch mit Tonkabohne und hausgemachtem Beerenkompott.</p>
+            <span class="dish-cat">Dessert</span>
+          </div>
+        </article>
+
+        <!-- Getränke -->
+        <article class="dish-card reveal" data-cat="getraenk">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=700&q=80)" alt="Signature Cocktail" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Golden Hour Cocktail</h3><span class="dish-price">12,00 €</span></div>
+            <p>Unser Signature-Drink mit Gin, Holunderblüte und Zitrusnoten.</p>
+            <span class="dish-cat">Getränk</span>
+          </div>
+        </article>
+        <article class="dish-card reveal" data-cat="getraenk">
+          <div class="dish-img"><img src="[images.unsplash.com](https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80)" alt="Rotwein" loading="lazy"></div>
+          <div class="dish-body">
+            <div class="dish-top"><h3>Spätburgunder Reserve</h3><span class="dish-price">9,50 €</span></div>
+            <p>Kraftvoller Rotwein vom regionalen Weingut, im Barrique gereift. 0,2 l.</p>
+            <span class="dish-cat">Getränk</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALERIE ============ -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Galerie</span>
+        <h2 class="section-title">Einblicke in unser Haus</h2>
+        <p>Ein Bild sagt mehr als tausend Worte – klicken Sie sich durch.</p>
+      </div>
+      <div class="masonry reveal" id="masonry">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80)" alt="Restaurant Ambiente" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80)" alt="Gedeckter Tisch" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80)" alt="Angerichtetes Gericht" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80)" alt="Restaurantinterieur" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80)" alt="Frischer Salat" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=80)" alt="Küchenszene" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=80)" alt="Dinner-Atmosphäre" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80)" alt="Aperitif" loading="lazy">
+        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=800&q=80)" alt="Fine Dining Teller" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Bildansicht">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Schließen">✕</button>
+    <img src="" alt="Vergrößertes Galeriebild" id="lightboxImg">
+  </div>
+
+  <!-- ============ BEWERTUNGEN ============ -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Bewertungen</span>
+        <h2 class="section-title">Was unsere Gäste sagen</h2>
+      </div>
+      <div class="reviews-slider reveal">
+        <div class="reviews-track" id="reviewsTrack">
+          <div class="review">
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">„Das beste Restaurant der Stadt! Das Rinderfilet war perfekt und der Service unglaublich aufmerksam. Wir kommen definitiv wieder."</p>
+              <div class="review-name">Sabine Krüger</div>
+              <div class="review-role">Stammgast seit 2018</div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">„Wunderschönes Ambiente, hervorragende Weinkarte und ein Dessert, von dem ich heute noch träume. Absolute Empfehlung!"</p>
+              <div class="review-name">Markus Lindemann</div>
+              <div class="review-role">Google-Bewertung</div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">„Wir haben hier unseren Hochzeitstag gefeiert – das Team hat alles perfekt gemacht. Man spürt die Leidenschaft in jedem Detail."</p>
+              <div class="review-name">Julia &amp; Tobias Weber</div>
+              <div class="review-role">Feier im Juni 2026</div>
+            </div>
+          </div>
+          <div class="review">
+            <div class="review-card">
+              <div class="stars">★★★★★</div>
+              <p class="review-text">„Als Vegetarierin fühle ich mich hier ernst genommen: kreative Gerichte statt Beilagen-Teller. Chapeau an die Küche!"</p>
+              <div class="review-name">Nadine Hoffmann</div>
+              <div class="review-role">Foodbloggerin</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-dots" id="reviewDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESERVIERUNG ============ -->
+  <section class="reserve" id="reserve">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Reservierung</span>
+        <h2 class="section-title">Reservieren Sie Ihren Tisch</h2>
+        <p style="color:#d8d2c2;">Wir freuen uns auf Ihren Besuch – sichern Sie sich Ihren Platz.</p>
+      </div>
+      <form class="reserve-form reveal" id="reserveForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="rName">Name *</label>
+            <input type="text" id="rName" placeholder="Ihr vollständiger Name" required>
+          </div>
+          <div class="form-group">
+            <label for="rPhone">Telefon *</label>
+            <input type="tel" id="rPhone" placeholder="+49 170 1234567" required>
+          </div>
+          <div class="form-group">
+            <label for="rEmail">E-Mail *</label>
+            <input type="email" id="rEmail" placeholder="name@beispiel.de" required>
+          </div>
+          <div class="form-group">
+            <label for="rDate">Datum *</label>
+            <input type="date" id="rDate" required>
+          </div>
+          <div class="form-group">
+            <label for="rTime">Uhrzeit *</label>
+            <input type="time" id="rTime" min="11:30" max="22:00" required>
+          </div>
+          <div class="form-group">
+            <label for="rGuests">Personen *</label>
+            <select id="rGuests" required>
+              <option value="">Bitte wählen</option>
+              <option>1 Person</option>
+              <option>2 Personen</option>
+              <option>3 Personen</option>
+              <option>4 Personen</option>
+              <option>5–8 Personen</option>
+              <option>Gruppe (9+)</option>
+            </select>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <button type="submit" class="btn btn-gold">Jetzt reservieren</button>
+        </div>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Kontakt</span>
+        <h2 class="section-title">So finden Sie uns</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal-left">
+          <div class="contact-card">
+            <div class="ic">📍</div>
+            <div><strong>Adresse</strong><p>Marktstraße 12 · 80331 München</p></div>
+          </div>
+          <div class="contact-card">
+            <div class="ic">📞</div>
+            <div><strong>Telefon</strong><p>+49 89 123 456 78</p></div>
+          </div>
+          <div class="contact-card">
+            <div class="ic">✉️</div>
+            <div><strong>E-Mail</strong><p>reservierung@goldene-tafel.de</p></div>
+          </div>
+          <div class="contact-card">
+            <div class="ic">🕐</div>
+            <div>
+              <strong>Öffnungszeiten</strong>
+              <p>Di – Sa: 11:30 – 22:00 Uhr<br>So: 11:30 – 15:00 Uhr · Montag Ruhetag</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-placeholder reveal-right">
+          <span>🗺️ Kartenansicht – hier Google Maps einbinden</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#home" class="logo">Goldene <span>Tafel</span></a>
+          <p style="font-size:.9rem; max-width:320px;">
+            Frische Zutaten. Echter Geschmack. Seit 1999 Ihr Restaurant für besondere Momente im Herzen von München.
+          </p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Facebook">👍</a>
+            <a href="#" aria-label="TripAdvisor">🦉</a>
+            <a href="#" aria-label="YouTube">▶️</a>
+          </div>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <nav class="footer-nav">
+            <a href="#home">Home</a>
+            <a href="#menu">Speisekarte</a>
+            <a href="#about">Über uns</a>
+            <a href="#gallery">Galerie</a>
+            <a href="#contact">Kontakt</a>
+          </nav>
+        </div>
+        <div>
+          <h4>Rechtliches</h4>
+          <nav class="footer-nav">
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+            <a href="#">AGB</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year"></span> Goldene Tafel · Alle Rechte vorbehalten
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-Top -->
+  <button id="toTop" aria-label="Nach oben scrollen">↑</button>
+
+  <script>
+  /* ============================================================
+     JAVASCRIPT – sauber gekapselt, kein globaler Namespace-Müll
+  ============================================================ */
+  (function () {
+    "use strict";
+
+    /* ---------- 1. Preloader ---------- */
+    window.addEventListener("load", () => {
+      setTimeout(() => document.getElementById("preloader").classList.add("hidden"), 400);
+    });
+
+    /* ---------- 2. Sticky Header (schrumpft beim Scrollen) ---------- */
+    const header = document.getElementById("header");
+    const toTop  = document.getElementById("toTop");
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      header.classList.toggle("scrolled", y > 60);
+      toTop.classList.toggle("show", y > 500);
+    }, { passive: true });
+
+    /* ---------- 3. Hamburger-Menü ---------- */
+    const hamburger = document.getElementById("hamburger");
+    const navLinks  = document.getElementById("navLinks");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      navLinks.classList.toggle("open");
+      document.body.style.overflow = navLinks.classList.contains("open") ? "hidden" : "";
+    });
+    // Menü schließen nach Klick auf einen Link
+    navLinks.querySelectorAll("a").forEach(link =>
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("open");
+        navLinks.classList.remove("open");
+        document.body.style.overflow = "";
+      })
+    );
+
+    /* ---------- 4. Dark Mode (mit localStorage) ---------- */
+    const themeToggle = document.getElementById("themeToggle");
+    const applyTheme = t => {
+      document.documentElement.setAttribute("data-theme", t);
+      themeToggle.textContent = t === "dark" ? "☀️" : "🌙";
+    };
+    applyTheme(localStorage.getItem("theme") || "light");
+    themeToggle.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", next);
+      applyTheme(next);
+    });
+
+    /* ---------- 5. Scroll-Animationen (IntersectionObserver) ---------- */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          observer.unobserve(e.target); // nur einmal animieren
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal, .reveal-left, .reveal-right")
+      .forEach(el => observer.observe(el));
+
+    /* ---------- 6. Speisekarten-Filter (ohne Reload) ---------- */
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const dishes     = document.querySelectorAll(".dish-card");
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const filter = btn.dataset.filter;
+        dishes.forEach(card => {
+          const show = filter === "all" || card.dataset.cat === filter;
+          card.classList.toggle("hide", !show);
+        });
+      });
+    });
+
+    /* ---------- 7. Galerie-Lightbox ---------- */
+    const lightbox    = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    document.querySelectorAll("#masonry img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+    });
+    const closeLightbox = () => {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+    /* ---------- 8. Bewertungs-Slider (automatisch) ---------- */
+    const track   = document.getElementById("reviewsTrack");
+    const slides  = track.children.length;
+    const dotsBox = document.getElementById("reviewDots");
+    let current   = 0, timer;
+
+    // Punkte erzeugen
+    for (let i = 0; i < slides; i++) {
+      const dot = document.createElement("button");
+      dot.className = "dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", "Bewertung " + (i + 1));
+      dot.addEventListener("click", () => { goTo(i); restartAuto(); });
+      dotsBox.appendChild(dot);
+    }
+    const dots = dotsBox.querySelectorAll(".dot");
+
+    function goTo(i) {
+      current = (i + slides) % slides;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, j) => d.classList.toggle("active", j === current));
+    }
+    function restartAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), 5000);
+    }
+    restartAuto();
+
+    // Touch-Swipe für den Slider
+    let startX = 0;
+    track.addEventListener("touchstart", e => startX = e.touches[0].clientX, { passive: true });
+    track.addEventListener("touchend", e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 50) { goTo(current + (diff < 0 ? 1 : -1)); restartAuto(); }
+    }, { passive: true });
+
+    /* ---------- 9. Ripple-Effekt für Buttons ---------- */
+    document.querySelectorAll(".btn").forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        const rect   = this.getBoundingClientRect();
+        const circle = document.createElement("span");
+        const size   = Math.max(rect.width, rect.height);
+        circle.className = "ripple";
+        circle.style.width = circle.style.height = size + "px";
+        circle.style.left = (e.clientX - rect.left - size / 2) + "px";
+        circle.style.top  = (e.clientY - rect.top  - size / 2) + "px";
+        this.appendChild(circle);
+        setTimeout(() => circle.remove(), 650);
+      });
+    });
+
+    /* ---------- 10. Reservierungsformular ---------- */
+    const form = document.getElementById("reserveForm");
+    const msg  = document.getElementById("formMsg");
+    // Mindestdatum = heute
+    document.getElementById("rDate").min = new Date().toISOString().split("T")[0];
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        msg.textContent = "Bitte füllen Sie alle Pflichtfelder korrekt aus.";
+        msg.style.color = "#ff9d8a";
+        form.reportValidity();
+        return;
+      }
+      const name = document.getElementById("rName").value.trim();
+      msg.style.color = "";
+      msg.textContent = `Vielen Dank, ${name}! Ihre Reservierungsanfrage wurde übermittelt. Wir bestätigen sie in Kürze per E-Mail.`;
+      form.reset();
+    });
+
+    /* ---------- 11. Aktueller Nav-Link beim Scrollen ---------- */
+    const sections = document.querySelectorAll("section[id]");
+    const menuAnchors = document.querySelectorAll(".nav-links a");
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          menuAnchors.forEach(a =>
+            a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id)
+          );
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    sections.forEach(s => sectionObserver.observe(s));
+
+    /* ---------- 12. Scroll-to-Top & Jahreszahl ---------- */
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+  })();
+  </script>
+</body>
+</html>
