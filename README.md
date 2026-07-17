@@ -7,7 +7,7 @@ Die Projekte dienen als Beispiele für moderne und responsive Websites in unters
 ## Aktuelle Previews
 
 * Barber Shop https://sarfraz-tech.github.io/barber-website/ 
-* Restaurant
+* Restaurant https://sarfraz-tech.github.io/preview-website/restaurant/
 * Café
 * Fitnessstudio
 * Zahnarzt
